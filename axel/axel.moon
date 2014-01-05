@@ -12,6 +12,7 @@ class Axel
 
 		@states = StateStack!
 		@keys = Keyboard!
+		@mouse = Mouse!
 
 	initialize: (initial_state, zoom) =>
 		assert @initialized == false, "Game has already been initialized"
@@ -30,12 +31,15 @@ class Axel
 		love.draw = -> @draw!
 		love.keypressed = @keys\key_down
 		love.keyreleased = @keys\key_up
+		love.mousepressed = @mouse\mouse_down
+		love.mousereleased = @mouse\mouse_up
 		love.graphics.setDefaultFilter "nearest", "nearest"
 
 	update: (dt) =>
 		@previous = @now
 		@now = love.timer.getTime!
 		@dt = dt
+		@mouse\update love.mouse.getPosition!
 		@states\update!
 
 	draw: =>

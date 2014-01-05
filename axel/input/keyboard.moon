@@ -1,6 +1,5 @@
 export class Keyboard extends Input
-	new: =>
-		super @@keys
+	new: => super @@keys
 
 	key_down: (key) =>
 		@keys[key] = axel.now
