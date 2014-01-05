@@ -26,10 +26,15 @@ export class Sprite extends Entity
 
 	draw: =>
 		love.graphics.setColor @color\values!
+		love.graphics.origin!
+		love.graphics.translate @x, @y
+		love.graphics.translate @frame_width / 2, @frame_height / 2
+		love.graphics.rotate @angle
+		love.graphics.translate -@frame_width / 2, -@frame_height / 2
 		if @graphic then @render_sprite! else @render_rectangle!
 
 	render_sprite: =>
-		love.graphics.draw @graphic, @x, @y
+		love.graphics.draw @graphic, 0, 0
 
 	render_rectangle: =>
-		love.graphics.rectangle "fill", @x, @y, @frame_width, @frame_height
+		love.graphics.rectangle "fill", 0, 0, @frame_width, @frame_height
