@@ -1,4 +1,2 @@
 export class Point
-	new: (x = 0, y = 0) =>
-		@x = x
-		@y = y
+	new: (@x = 0, @y = 0) =>
