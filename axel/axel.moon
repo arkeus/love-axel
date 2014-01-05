@@ -4,12 +4,12 @@ class Axel
 		@love = nil
 		@dt = 0
 
-	initialize: (love) =>
+	initialize: =>
 		assert @initialized == false, "Game has already been initialized"
-		@bind_love love
+		@bind_love!
 		@initialized = true
 
-	bind_love: (love) =>
+	bind_love: =>
 		@love = love
 		@love.update = (dt) -> @update dt
 		@love.draw = -> @draw!
