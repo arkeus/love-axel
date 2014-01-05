@@ -20,3 +20,12 @@ export class Group extends Entity
 		return nil
 
 	length: => #@members
+
+	update: =>
+		super!
+		for member in *@members
+			member\update! if member.exists and member.active
+
+	draw: =>
+		for member in *@members
+			member\draw! if member.exists and member.visible

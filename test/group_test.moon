@@ -67,3 +67,20 @@ test class GroupTest
 		assert g\length! == 0
 		assert g\index(e1) == nil
 		assert g\index(e2) == nil
+
+	update_test: ->
+		g = Group!
+		e1 = Entity!
+		e2 = Entity!
+		e1.velocity.x = 5
+		e2.velocity.y = 10
+
+		assert e1.x == 0
+		assert e2.y == 0
+
+		g\add e1
+		g\add e2
+		g\update!
+
+		assert e1.x == 5
+		assert e2.y == 10
