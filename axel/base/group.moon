@@ -18,3 +18,5 @@ export class Group extends Entity
 		for i, item in ipairs @members
 			return i if item == entity
 		return nil
+
+	length: => #@members
