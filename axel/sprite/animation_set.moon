@@ -11,11 +11,11 @@ export class AnimationSet
 		@quads = QuadSet width, height, image_width, image_height
 
 	add: (name, frames, framerate = 15, looped = true, callback = nil) =>
-		@animations[name] = Animation(name, frames, framerate, looped, callback)
+		@animations[name] = Animation name, frames, framerate, looped, callback
 		self
 
 	play: (name, reset = false) =>
-		if (reset or @animation == nil or (@animation != nil and @animation.name != @name)) and @animations[name] != nil
+		if (reset or @animation == nil or (@animation != nil and @animation.name != name)) and @animations[name] != nil
 			@animation = @animations[name]
 			@delay = 1 / @animation.framerate
 			@timer = @delay
