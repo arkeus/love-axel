@@ -1,9 +1,5 @@
 export class Color
-	new: (red = 0, green = 0, blue = 0, alpha = 255) =>
-		@red = red
-		@green = green
-		@blue = blue
-		@alpha = alpha
+	new: (@red = 0, @green = 0, @blue = 0, @alpha = 255) =>
 
 	values: => @red, @green, @blue, @alpha
 
