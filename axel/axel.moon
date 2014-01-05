@@ -2,6 +2,7 @@ class Axel
 	new: =>
 		@initialized = false
 		@love = nil
+		@dt = 0
 
 	initialize: (love) =>
 		assert @initialized == false, "Game has already been initialized"
@@ -14,7 +15,7 @@ class Axel
 		@love.draw = -> @draw!
 
 	update: (dt) =>
-		-- update
+		@dt = dt
 
 	draw: =>
 		@love.graphics.print("Testing", 10, 10)
