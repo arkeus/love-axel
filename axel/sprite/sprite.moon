@@ -4,13 +4,22 @@ export class Sprite extends Entity
 
 		@color = Color\white!
 		@scale = Point 1, 1
+		@animations = AnimationSet!
 
-		@load graphic, frame_width, frame_height
+		if graphic
+			@load graphic, frame_width, frame_height
+		else
+			@create 10, 10
 
 	load: (graphic, frame_width = 0, frame_height = 0) =>
-		@graphic = if graphic then @create_image graphic else nil
-		@frame_width = frame_width
-		@frame_height = frame_height
+		@graphic = @create_image graphic
+		if frame_width == 0 or frame_height == 0
+			@frame_width = @graphic\getWidth!
+			@frame_height = @graphic\getHeight!
+		else
+			@frame_width = frame_width
+			@frame_height = frame_height
+		@animations\resize @frame_width, @frame_height, @graphic\getWidth!, @graphic\getHeight!
 		self
 
 	create: (width, height, color = nil) =>
@@ -25,6 +34,7 @@ export class Sprite extends Entity
 
 	update: =>
 		super!
+		@animations\advance axel.dt
 
 	draw: =>
 		love.graphics.push!
@@ -37,7 +47,9 @@ export class Sprite extends Entity
 		love.graphics.pop!
 
 	render_sprite: =>
-		love.graphics.draw @graphic, 0, 0
+		love.graphics.draw @graphic, @animations\quad!, 0, 0
 
 	render_rectangle: =>
-		love.graphics.rectangle "fill", 0, 0, @frame_width, @frame_height
+		width = if @frame_width == 0 then 10 else @frame_width
+		height = if @frame_height == 0 then 10 else @frame_height
+		love.graphics.rectangle "fill", 0, 0, width, height
