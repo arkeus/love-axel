@@ -8,16 +8,22 @@ class Axel
 		@height = 0
 		@window_width = 0
 		@window_height = 0
+		@zoom = 1
 
 		@states = StateStack!
 		@keys = Keyboard!
 
 		print(KeyConstant)
 
-	initialize: (initial_state) =>
+	initialize: (initial_state, zoom) =>
 		assert @initialized == false, "Game has already been initialized"
 		@bind_love!
-		@create initial_state
+		@window_width = love.window.getWidth!
+		@window_height = love.window.getHeight!
+		@width = @window_width
+		@height = @window_height
+		@states\push initial_state!
+		@zoom = zoom
 		@initialized = true
 
 	bind_love: =>
@@ -26,13 +32,6 @@ class Axel
 		love.keypressed = @keys\key_down
 		love.keyreleased = @keys\key_up
 
-	create: (initial_state) =>
-		@window_width = love.window.getWidth!
-		@window_height = love.window.getHeight!
-		@width = @window_width
-		@height = @window_height
-		@states\push initial_state!
-
 	update: (dt) =>
 		@previous = @now
 		@now = love.timer.getTime!
@@ -40,6 +39,8 @@ class Axel
 		@states\update!
 
 	draw: =>
+		love.graphics.origin!
+		love.graphics.scale @zoom, @zoom
 		@states\draw!
 
 export axel = Axel!
