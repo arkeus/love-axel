@@ -1,1 +1,1 @@
-require "point"
+require "axel.base.point"
