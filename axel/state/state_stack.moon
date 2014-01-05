@@ -27,5 +27,5 @@ export class StateStack
 			state\update! if i == #@states or state.persistant_update
 
 	draw: =>
-		for i, state in pairs @StateStack
+		for i, state in pairs @states
 			state\draw! if i == #@states or state.persistant_draw

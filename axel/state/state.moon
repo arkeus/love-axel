@@ -1,5 +1,6 @@
 export class State extends Group
 	new: =>
+		super!
 		@persistant_update = false
 		@persistant_draw = true
 
