@@ -1,5 +1,5 @@
 require "test"
 require "axel.library"
 
-require "point"
-require "rectangle"
+require "point_test"
+require "rectangle_test"
