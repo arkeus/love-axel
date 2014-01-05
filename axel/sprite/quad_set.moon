@@ -1,6 +1,5 @@
 export class QuadSet
 	new: (@width, @height, @image_width, @image_height) =>
-		print "Quadset", @width, @height, @image_width, @image_height
 		@quads = {}
 		@columns = math.floor @image_width / @width
 		@rows = math.floor @image_height / @height
