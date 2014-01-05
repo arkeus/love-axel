@@ -1,4 +1,4 @@
 export class Point
-	new: (x, y) =>
+	new: (x = 0, y = 0) =>
 		@x = x
 		@y = y
