@@ -3,11 +3,9 @@ export class Keyboard extends Input
 		super @@keys
 
 	key_down: (key) =>
-		print "Key down #{key}"
 		@keys[key] = axel.now
 
 	key_up: (key) =>
-		print "Key up #{key}"
 		@keys[key] = -axel.now
 
 	@keys: {

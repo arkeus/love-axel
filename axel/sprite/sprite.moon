@@ -3,6 +3,8 @@ export class Sprite extends Entity
 		super x, y
 
 		@color = Color\white!
+		@scale = Point 1, 1
+
 		@load graphic, frame_width, frame_height
 
 	load: (graphic, frame_width = 0, frame_height = 0) =>

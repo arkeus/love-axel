@@ -13,11 +13,10 @@ class Axel
 		@states = StateStack!
 		@keys = Keyboard!
 
-		print(KeyConstant)
-
 	initialize: (initial_state, zoom) =>
 		assert @initialized == false, "Game has already been initialized"
 		@bind_love!
+
 		@window_width = love.window.getWidth!
 		@window_height = love.window.getHeight!
 		@width = @window_width
@@ -31,6 +30,7 @@ class Axel
 		love.draw = -> @draw!
 		love.keypressed = @keys\key_down
 		love.keyreleased = @keys\key_up
+		love.graphics.setDefaultFilter "nearest", "nearest"
 
 	update: (dt) =>
 		@previous = @now
