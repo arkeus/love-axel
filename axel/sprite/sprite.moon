@@ -30,7 +30,7 @@ export class Sprite extends Entity
 		self
 
 	create_image: (graphic) =>
-		love.graphics.newImage(graphic)
+		love.graphics.newImage graphic
 
 	update: =>
 		super!
