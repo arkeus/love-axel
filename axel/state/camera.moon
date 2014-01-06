@@ -25,5 +25,5 @@ export class Camera extends Point
 				elseif @y + @padding.y + @padding.height < @target.y + @target.height
 					@y = @target.y + @target.height - @padding.y - @padding.height
 
-		--@x = if @bounds.width - axel.width then @bounds.x else axel.util\clamp @x, @bounds.x, @bounds.width - axel.width
-		--@y = if @bounds.height - axel.height < @bounds.y then @bounds.y else axel.util\clamp @y, @bounds.y, @bounds.height - axel.height
+		@x = if @bounds.width - axel.width < @bounds.x then @bounds.x else axel.util\clamp @x, @bounds.x, @bounds.width - axel.width
+		@y = if @bounds.height - axel.height < @bounds.y then @bounds.y else axel.util\clamp @y, @bounds.y, @bounds.height - axel.height
