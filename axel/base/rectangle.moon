@@ -11,3 +11,8 @@ export class Rectangle extends Point
 		@y = y
 		@width = width
 		@height = height
+
+	left: => @x
+	right: => @x + @width
+	top: => @y
+	bottom: => @y + @height
