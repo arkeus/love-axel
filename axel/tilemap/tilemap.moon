@@ -10,10 +10,8 @@ export class Tilemap extends Entity
 		@atlas = QuadSet tile_width, tile_height, @tileset\getWidth!, @tileset\getHeight!
 		@batch = love.graphics.newSpriteBatch @tileset, @num_tiles
 		@batch\bind!
-		@height = #data * tile_height
 		for y = 1, #data
 			row = data[y]
-			@width = math.max @width, #row * tile_width
 			for x = 1, #row
 				tile = row[x]
 				continue if tile < 1
