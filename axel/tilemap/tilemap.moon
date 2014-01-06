@@ -6,7 +6,6 @@ export class Tilemap extends Entity
 		assert tile_width > 0 and tile_height > 0, "Invalid tile size"
 
 		@width, @height, @columns, @rows, @num_tiles = @get_data_size data, tile_width, tile_height
-		print "Tilemap", @width, @height, @columns, @rows, @num_tiles
 		@tileset = love.graphics.newImage tileset
 		@atlas = QuadSet tile_width, tile_height, @tileset\getWidth!, @tileset\getHeight!
 		@batch = love.graphics.newSpriteBatch @tileset, @num_tiles
