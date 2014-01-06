@@ -3,3 +3,5 @@ export class AxelUtils
 		return max if value > max
 		return min if value < min
 		return value
+
+export epsilon = 0.00001

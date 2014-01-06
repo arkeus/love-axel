@@ -7,9 +7,9 @@ export class State extends Group
 
 	update: =>
 		super!
-		@camera\update!
 
 	draw: =>
+		@camera\update!
 		love.graphics.push!
 		love.graphics.translate -@camera.x, -@camera.y
 		super!

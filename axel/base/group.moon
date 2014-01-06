@@ -1,4 +1,6 @@
 export class Group extends Entity
+	__type: "group"
+
 	new: (x, y) =>
 		super x, y
 		@members = {}

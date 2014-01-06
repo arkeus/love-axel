@@ -24,7 +24,7 @@ class Axel
 		@zoom = zoom
 		@width = @window_width / @zoom
 		@height = @window_height / @zoom
-		
+
 		@states\push initial_state!
 		@initialized = true
 
@@ -48,5 +48,16 @@ class Axel
 		love.graphics.origin!
 		love.graphics.scale @zoom, @zoom
 		@states\draw!
+
+	collide: (source, target, callback = nil, collider = nil) =>
+		print "ONE COLLIDE CALL"
+		if collider == nil
+			collider = GroupCollider!
+		else
+			collider\reset!
+
+		collider.callback = callback
+		collider\build source, target
+		return collider\collide!
 
 export axel = Axel!

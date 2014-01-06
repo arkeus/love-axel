@@ -19,6 +19,9 @@ export class Sprite extends Entity
 		else
 			@frame_width = frame_width
 			@frame_height = frame_height
+		if @width == 0 or @height == 0
+			@width = @frame_width
+			@height = @frame_height
 		@animations\resize @frame_width, @frame_height, @graphic\getWidth!, @graphic\getHeight!
 		self
 

@@ -1,4 +1,6 @@
 export class Entity extends Rectangle
+	__type: "entity"
+
 	new: (x = 0, y = 0, width = 0, height = 0) =>
 		super x, y, width, height
 
