@@ -5,3 +5,9 @@ export class Rectangle extends Point
 		super x, y
 		@width = width
 		@height = height
+
+	set_rectangle: (x, y, width, height) =>
+		@x = x
+		@y = y
+		@width = width
+		@height = height

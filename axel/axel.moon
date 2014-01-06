@@ -13,6 +13,7 @@ class Axel
 		@states = StateStack!
 		@keys = Keyboard!
 		@mouse = Mouse!
+		@util = AxelUtils!
 
 	initialize: (initial_state, zoom) =>
 		assert @initialized == false, "Game has already been initialized"
@@ -20,10 +21,11 @@ class Axel
 
 		@window_width = love.window.getWidth!
 		@window_height = love.window.getHeight!
-		@width = @window_width
-		@height = @window_height
-		@states\push initial_state!
 		@zoom = zoom
+		@width = @window_width / @zoom
+		@height = @window_height / @zoom
+		
+		@states\push initial_state!
 		@initialized = true
 
 	bind_love: =>
