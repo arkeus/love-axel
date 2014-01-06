@@ -12,9 +12,7 @@ export class Camera extends Point
 
 	update: =>
 		if @target != nil
-			print "target not nil"
 			if @padding == nil
-				print "padding nil", axel.width, axel.height
 				@x = @target.x + (@target.width - axel.width) / 2
 				@y = @target.y + (@target.height - axel.height) / 2
 			else
