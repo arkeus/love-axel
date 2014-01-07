@@ -43,7 +43,6 @@ export class Collider
 			elseif sfx < tfx
 				overlap = source.x - target.width - target.x
 
-		print "x overlap", overlap
 		if overlap != 0
 			source.x -= overlap
 			source.velocity.x = 0
@@ -78,7 +77,6 @@ export class Collider
 			elseif sfy < tfy
 				overlap = source.y - target.height - target.y
 
-		print "y overlap", overlap
 		if overlap != 0
 			source.y -= overlap
 			source.velocity.y = 0

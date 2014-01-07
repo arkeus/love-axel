@@ -5,7 +5,7 @@ export class Tilemap extends Entity
 		super x, y
 		@frame = Rectangle!
 
-	load: (data, tileset, tile_width, tile_height) =>
+	load: (data, tileset, tile_width, tile_height, solid_index = 1) =>
 		assert tile_width > 0 and tile_height > 0, "Invalid tile size"
 
 		@width, @height, @columns, @rows, @num_tiles = @get_data_size data, tile_width, tile_height
@@ -14,6 +14,10 @@ export class Tilemap extends Entity
 		@tileset = love.graphics.newImage tileset
 		@atlas = QuadSet tile_width, tile_height, @tileset\getWidth!, @tileset\getHeight!
 		@batch = love.graphics.newSpriteBatch @tileset, @num_tiles
+
+		@tiles = {}
+		for t = 1, @num_tiles
+			table.insert @tiles, Tile self, t, t >= solid_index
 
 		@batch\bind!
 		for y = 1, #data
@@ -32,8 +36,7 @@ export class Tilemap extends Entity
 			row = data[y]
 			columns = math.max columns, #row
 			num_tiles += #row
-		columns * tile_width, rows * tile_height, columns, rows, num_tiles
-		
+		columns * tile_width, rows * tile_height, columns, rows, num_tiles		
 
 	draw: =>
 		love.graphics.push!
@@ -42,8 +45,6 @@ export class Tilemap extends Entity
 		love.graphics.pop!
 
 	overlap: (target, callback = nil, collide = false) =>
-		print "colliding tilemap"
-
 		tdx = target.x - target.previous.x
 		tdy = target.y - target.previous.y
 
@@ -66,15 +67,13 @@ export class Tilemap extends Entity
 		tile = Entity 0, 0, @tile_width, @tile_height
 		for x = sx, ex
 			for y = sy, ey
-				print "checking tile"
 				tid = @data[y * @columns + x]
 				continue if tid == 0
-				print "colliding tile", tid
+				tile_object = @tiles[tid]
+				continue unless tile_object.solid
 				tile.x = x * @tile_width + @x
 				tile.y = y * @tile_height + @y
 				tile.previous.x = tile.x
 				tile.previous.y = tile.y
-				print "doing overlap", target.x, target.y, target.width, target.height
-				print "with", tile.x, tile.y, tile.width, tile.height
 				overlapped = callback target, tile
 		overlapped

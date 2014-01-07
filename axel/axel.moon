@@ -50,7 +50,6 @@ class Axel
 		@states\draw!
 
 	collide: (source, target, callback = nil, collider = nil) =>
-		print "ONE COLLIDE CALL"
 		if collider == nil
 			collider = GroupCollider!
 		else
