@@ -24,8 +24,10 @@ export class StateStack
 
 	update: =>
 		for i, state in pairs @states
+			axel.camera = state.camera
 			state\update! if i == #@states or state.persistant_update
 
 	draw: =>
 		for i, state in pairs @states
+			axel.camera = state.camera
 			state\draw! if i == #@states or state.persistant_draw

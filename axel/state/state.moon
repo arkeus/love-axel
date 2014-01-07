@@ -10,10 +10,10 @@ export class State extends Group
 
 	draw: =>
 		@camera\update!
-		love.graphics.push!
-		love.graphics.translate -@camera.x, -@camera.y
+		--love.graphics.push!
+		--love.graphics.translate -@camera.x, -@camera.y
 		super!
-		love.graphics.pop!
+		--love.graphics.pop!
 
 	create: => -- Abstract
 	on_pause: => -- Abstract

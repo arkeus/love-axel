@@ -39,10 +39,7 @@ export class Tilemap extends Entity
 		columns * tile_width, rows * tile_height, columns, rows, num_tiles		
 
 	draw: =>
-		love.graphics.push!
-		love.graphics.translate @x, @y
 		love.graphics.draw @batch
-		love.graphics.pop!
 
 	overlap: (target, callback = nil, collide = false) =>
 		tdx = target.x - target.previous.x

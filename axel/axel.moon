@@ -9,6 +9,7 @@ class Axel
 		@window_width = 0
 		@window_height = 0
 		@zoom = 1
+		@camera = nil
 
 		@states = StateStack!
 		@keys = Keyboard!

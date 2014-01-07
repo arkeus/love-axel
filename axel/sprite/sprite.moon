@@ -2,7 +2,6 @@ export class Sprite extends Entity
 	new: (x = 0, y = 0, graphic = nil, frame_width = 0, frame_height = 0) =>
 		super x, y
 
-		@color = Color\white!
 		@scale = Point 1, 1
 		@animations = AnimationSet!
 
@@ -40,14 +39,12 @@ export class Sprite extends Entity
 		@animations\advance axel.dt
 
 	draw: =>
-		love.graphics.push!
-		love.graphics.setColor @color\values!
-		love.graphics.translate @x, @y
-		love.graphics.translate @frame_width / 2, @frame_height / 2
-		love.graphics.rotate @angle
-		love.graphics.translate -@frame_width / 2, -@frame_height / 2
+		if @angle != 0
+			love.graphics.translate @frame_width / 2, @frame_height / 2
+			love.graphics.rotate @angle
+			love.graphics.translate -@frame_width / 2, -@frame_height / 2
+
 		if @graphic then @render_sprite! else @render_rectangle!
-		love.graphics.pop!
 
 	render_sprite: =>
 		love.graphics.draw @graphic, @animations\quad!, 0, 0

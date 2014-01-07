@@ -14,12 +14,15 @@ export class Entity extends Rectangle
 
 		@center = Point @x + @width / 2, @y + @height / 2
 		@previous = Point @x, @y
+		@scroll_factor = Point 1, 1
 
 		@velocity = Vector!
 		@pvelocity = Vector!
 		@acceleration = Vector!
 		@max_velocity = Vector math.huge, math.huge, math.huge
 		@drag = Vector!
+
+		@color = Color\white!
 
 	update: =>
 		@previous.x = @x
@@ -57,3 +60,21 @@ export class Entity extends Rectangle
 			velocity = -max
 
 		velocity
+
+	-- Sets up coordinate system
+	pre_draw: =>
+		sx = @x - @offset.x
+		sy = @y - @offset.y
+		cx = axel.camera.x * @scroll_factor.x
+		cy = axel.camera.y * @scroll_factor.y
+		
+		love.graphics.push!
+		love.graphics.setColor @color\values!
+		love.graphics.translate math.floor(sx - cx + epsilon + 0.5), math.floor(sy - cy + epsilon + 0.5)
+
+	-- Draw here I doth declare
+	draw: => --abstract
+
+	-- Tears down coordinate system
+	post_draw: =>
+		love.graphics.pop!
