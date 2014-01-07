@@ -6,6 +6,7 @@ export class Collider
 		@target_axis_frame = Rectangle!
 		@callback = nil
 		@comparisons = 0
+		@solve_x_collision_callback = @\solve_x_collision
 
 	build: => -- abstract
 	overlap: => -- abstract
@@ -18,10 +19,8 @@ export class Collider
 			table.insert group, object
 
 	solve_x_collision: (source, target) =>
-		solve_x_collision_callback or= @\solve_x_collision
-
-		return source\overlap target, solve_x_collision_callback, true if source.__type == "tilemap"
-		return target\overlap source, solve_x_collision_callback, true if target.__type == "tilemap"
+		return source\overlap target, @solve_x_collision_callback, true if source.__type == "tilemap"
+		return target\overlap source, @solve_x_collision_callback, true if target.__type == "tilemap"
 
 		sfx = source.x - source.previous.x
 		tfx = target.x - target.previous.x
