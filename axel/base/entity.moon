@@ -23,6 +23,7 @@ export class Entity extends Rectangle
 		@drag = Vector!
 
 		@color = Color\white!
+		@zoomable = true
 
 	update: =>
 		@previous.x = @x
@@ -68,6 +69,11 @@ export class Entity extends Rectangle
 		cx = axel.camera.x * @scroll_factor.x
 		cy = axel.camera.y * @scroll_factor.y
 		
+		if not @zoomable
+			love.graphics.scale 1 / axel.zoom, 1 / axel.zoom
+			cx *= axel.zoom
+			cy *= axel.zoom
+
 		love.graphics.push!
 		love.graphics.setColor @color\values!
 		love.graphics.translate math.floor(sx - cx + epsilon + 0.5), math.floor(sy - cy + epsilon + 0.5)
