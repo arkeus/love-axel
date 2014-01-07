@@ -7,6 +7,7 @@ export class Collider
 		@callback = nil
 		@comparisons = 0
 		@solve_x_collision_callback = @\solve_x_collision
+		@solve_y_collision_callback = @\solve_y_collision
 
 	build: => -- abstract
 	overlap: => -- abstract
@@ -51,10 +52,8 @@ export class Collider
 		return false
 
 	solve_y_collision: (source, target) =>
-		solve_y_collision_callback or= @\solve_y_collision
-
-		return source\overlap target, solve_y_collision_callback, true if source.__type == "tilemap"
-		return target\overlap source, solve_y_collision_callback, true if target.__type == "tilemap"
+		return source\overlap target, @solve_y_collision_callback, true if source.__type == "tilemap"
+		return target\overlap source, @solve_y_collision_callback, true if target.__type == "tilemap"
 
 		sfy = source.y - source.previous.y
 		tfy = target.y - target.previous.y
