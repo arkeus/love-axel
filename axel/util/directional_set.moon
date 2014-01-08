@@ -12,3 +12,6 @@ export class DirectionalSet
 		@right = other.right
 		@down = other.down
 		@up = other.up
+
+	__tostring: =>
+		"Left=#{@left}, Right=#{@right}, Up=#{@up}, Down=#{@down}"

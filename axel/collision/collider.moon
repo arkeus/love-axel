@@ -40,8 +40,12 @@ export class Collider
 		if (@source_axis_frame.x + @source_axis_frame.width - epsilon > @target_axis_frame.x) and (@source_axis_frame.x + epsilon < @target_axis_frame.x + @target_axis_frame.width) and (@source_axis_frame.y + @source_axis_frame.height - epsilon > @target_axis_frame.y) and (@source_axis_frame.y + epsilon < @target_axis_frame.y + @target_axis_frame.height)
 			if sfx > tfx
 				overlap = source.x + source.width - target.x
+				source.touching.right = true
+				target.touching.left = true
 			elseif sfx < tfx
 				overlap = source.x - target.width - target.x
+				target.touching.right = true
+				source.touching.left = true
 
 		if overlap != 0
 			source.x -= overlap
@@ -72,8 +76,12 @@ export class Collider
 		if (@source_axis_frame.x + @source_axis_frame.width - epsilon > @target_axis_frame.x) and (@source_axis_frame.x + epsilon < @target_axis_frame.x + @target_axis_frame.width) and (@source_axis_frame.y + @source_axis_frame.height - epsilon > @target_axis_frame.y) and (@source_axis_frame.y + epsilon < @target_axis_frame.y + @target_axis_frame.height)
 			if sfy > tfy
 				overlap = source.y + source.height - target.y
+				source.touching.down = true
+				target.touching.up = true
 			elseif sfy < tfy
 				overlap = source.y - target.height - target.y
+				source.touching.up = true
+				target.touching.down = true
 
 		if overlap != 0
 			source.y -= overlap
