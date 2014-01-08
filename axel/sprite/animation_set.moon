@@ -6,6 +6,7 @@ export class AnimationSet
 		@frame = 0
 		@delay = 0
 		@timer = 0
+		@complete = false
 
 	resize: (width, height, image_width, image_height) =>
 		@quads = QuadSet width, height, image_width, image_height
@@ -15,11 +16,14 @@ export class AnimationSet
 		self
 
 	play: (name, reset = false) =>
+		--print "before"
 		if (reset or @animation == nil or (@animation != nil and @animation.name != name)) and @animations[name] != nil
 			@animation = @animations[name]
 			@delay = 1 / @animation.framerate
 			@timer = @delay
-			@frame = 0
+			@frame = 1
+			@complete = false
+		--print "after"
 
 	show: (frame) =>
 		@animation = nil
@@ -30,10 +34,15 @@ export class AnimationSet
 			@timer += dt
 			while @timer >= @delay
 				@timer -= @delay
-				if @frame + 1 < #@animation.frames or @animation.looped
-					@frame = (@frame + 1) % #@animation.frames
-				@animation.callback! if @frame + 1 == #@animation.frames and @animation.callback != nil
+				if @frame < #@animation.frames
+					@frame = @frame + 1
+				elseif @animation.looped
+					@frame = 1
+					@animation.callback! if @animation.callback
+				elseif not @complete
+					@animation.callback! if @animation.callback
+					@complete = true
 
-	quad: => @quads\get(@frame)
+	quad: => @quads\get(if @animation == nil then @frame else @animation.frames[@frame])
 
 	get: (name) => @animations[name]
