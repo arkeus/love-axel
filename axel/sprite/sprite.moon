@@ -47,6 +47,9 @@ export class Sprite extends Entity
 		if @graphic then @render_sprite! else @render_rectangle!
 
 	render_sprite: =>
+		if @facing == @flip
+			love.graphics.translate @frame_width, 0
+			love.graphics.scale -1, 1
 		love.graphics.draw @graphic, @animations\quad!, 0, 0
 
 	render_rectangle: =>

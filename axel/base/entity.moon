@@ -12,6 +12,9 @@ export class Entity extends Rectangle
 		@solid = true
 		@exists = true
 
+		@facing = RIGHT
+		@flip = LEFT
+
 		@center = Point @x + @width / 2, @y + @height / 2
 		@previous = Point @x, @y
 		@scroll_factor = Point 1, 1
@@ -22,10 +25,16 @@ export class Entity extends Rectangle
 		@max_velocity = Vector math.huge, math.huge, math.huge
 		@drag = Vector!
 
+		@touching = DirectionalSet!
+		@touched = DirectionalSet!
+
 		@color = Color\white!
 		@zoomable = true
 
 	update: =>
+		@touched\copy @touching
+		@touching\clear!
+		
 		@previous.x = @x
 		@previous.y = @y
 		@pvelocity.x = @velocity.x
