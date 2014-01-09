@@ -1,3 +1,5 @@
+assert love._version_major >= 0 and love._version_minor >= 9, "Axel requires Löve 0.9.0 and above"
+
 class Axel
 	new: =>
 		@initialized = false
