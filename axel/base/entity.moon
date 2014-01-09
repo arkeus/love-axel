@@ -30,8 +30,10 @@ export class Entity extends Rectangle
 
 		@color = Color\white!
 		@zoomable = true
+		@timers = TimerSet!
 
 	update: =>
+		@timers\update!
 		@touched\copy @touching
 		@touching\clear!
 		

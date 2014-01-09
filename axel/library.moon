@@ -1,6 +1,8 @@
 require "axel.util.enums"
 require "axel.util.axel_utils"
 require "axel.util.directional_set"
+require "axel.util.timer"
+require "axel.util.timer_set"
 require "axel.base.point"
 require "axel.base.rectangle"
 require "axel.base.vector"
