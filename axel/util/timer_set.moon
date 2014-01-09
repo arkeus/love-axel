@@ -26,7 +26,6 @@ export class TimerSet
 					table.remove @timers, i unless @timers[i].alive
 
 	add: (delay, times = 1, callback, start = -1) =>
-		print "times is #{times}"
 		@timers = {} unless @timers
 		timer = Timer delay, times, callback, start
 		table.insert @timers, timer
