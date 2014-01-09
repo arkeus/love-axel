@@ -67,6 +67,7 @@ export class Tilemap extends Entity
 				tid = @data[y * @columns + x]
 				continue if tid == 0
 				tile_object = @tiles[tid]
+				tile_object.callback tile_object, target if tile_object.callback
 				continue unless tile_object.solid
 				tile.x = x * @tile_width + @x
 				tile.y = y * @tile_height + @y
@@ -74,3 +75,6 @@ export class Tilemap extends Entity
 				tile.previous.y = tile.y
 				overlapped = callback target, tile
 		overlapped
+
+	get_tile: (id) => @tiles[id]
+	get_tiles: (ids) => [@tiles[id] for id in *ids]
