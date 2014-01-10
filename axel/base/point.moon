@@ -4,3 +4,5 @@ export class Point
 	zero: =>
 		@x = 0
 		@y = 0
+
+	__tostring: => "Point(#{@x}, #{@y})"

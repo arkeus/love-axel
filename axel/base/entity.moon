@@ -15,9 +15,10 @@ export class Entity extends Rectangle
 		@facing = RIGHT
 		@flip = LEFT
 
+		@screen = Point!
 		@center = Point @x + @width / 2, @y + @height / 2
 		@previous = Point @x, @y
-		@scroll_factor = Point 1, 1
+		@scroll = Point 1, 1
 
 		@velocity = Vector!
 		@pvelocity = Vector!
@@ -33,6 +34,9 @@ export class Entity extends Rectangle
 		@timers = TimerSet!
 
 	update: =>
+		@screen.x = @x - axel.camera.x + @scroll.x
+		@screen.y = @y - axel.camera.y + @scroll.y
+
 		@timers\update!
 		@touched\copy @touching
 		@touching\clear!
@@ -77,8 +81,8 @@ export class Entity extends Rectangle
 	pre_draw: =>
 		sx = @x - @offset.x
 		sy = @y - @offset.y
-		cx = axel.camera.x * @scroll_factor.x
-		cy = axel.camera.y * @scroll_factor.y
+		cx = axel.camera.x * @scroll.x
+		cy = axel.camera.y * @scroll.y
 
 		love.graphics.push!
 		
