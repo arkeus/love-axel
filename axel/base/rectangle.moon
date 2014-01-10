@@ -16,3 +16,5 @@ export class Rectangle extends Point
 	right: => @x + @width
 	top: => @y
 	bottom: => @y + @height
+
+	__tostring: => "Rectangle(#{@x}, #{@y}, #{@width}, #{@height})"

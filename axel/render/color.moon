@@ -3,9 +3,13 @@ export class Color
 
 	values: => @red, @green, @blue, @alpha
 
+	clone: => Color @red, @green, @blue, @alpha
+
 	-- Construct common colors, safe to mutate
 	@red: => Color 255
 	@green: => Color 0, 255
 	@blue: => Color 0, 0, 255
 	@white: => Color 255, 255, 255
 	@black: => Color!
+
+	__tostring: => "Color(#{@red}, #{@green}, #{@blue}, #{@alpha})"

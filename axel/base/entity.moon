@@ -100,3 +100,5 @@ export class Entity extends Rectangle
 	-- Tears down coordinate system
 	post_draw: =>
 		love.graphics.pop!
+
+	__tostring: => "Entity(#{@x}, #{@y}, #{@width}, #{@height})"
