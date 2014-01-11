@@ -58,6 +58,8 @@ export class Entity extends Rectangle
 		@center.x = @x + @width / 2
 		@center.y = @y + @height / 2
 
+		axel.debugger.updates += 1
+
 	calculate_velocity: (velocity, acceleration, drag, max) =>
 		if acceleration != 0
 			velocity += acceleration * axel.dt

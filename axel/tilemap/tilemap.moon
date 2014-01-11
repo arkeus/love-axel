@@ -39,6 +39,7 @@ export class Tilemap extends Entity
 		columns * tile_width, rows * tile_height, columns, rows, num_tiles		
 
 	draw: =>
+		axel.debugger.draws += 1
 		love.graphics.draw @batch
 
 	overlap: (target, callback = nil, collide = false) =>

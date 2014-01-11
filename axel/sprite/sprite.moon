@@ -44,6 +44,7 @@ export class Sprite extends Entity
 			love.graphics.rotate @angle
 			love.graphics.translate -@frame_width / 2, -@frame_height / 2
 
+		axel.debugger.draws += 1
 		if @graphic then @render_sprite! else @render_rectangle!
 
 	render_sprite: =>

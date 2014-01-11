@@ -27,6 +27,7 @@ class Axel
 		@zoom = zoom
 		@width = @window_width / @zoom
 		@height = @window_height / @zoom
+		@debugger = Debugger!
 
 		@states\push initial_state!
 		@initialized = true
@@ -45,12 +46,15 @@ class Axel
 		@now = love.timer.getTime!
 		@dt = dt
 		@mouse\update love.mouse.getPosition!
+		@debugger\reset_stats!
 		@states\update!
 
 	draw: =>
 		love.graphics.origin!
 		love.graphics.scale @zoom, @zoom
 		@states\draw!
+		@debugger\update!
+		@debugger\draw! if @debugger.active
 
 	collide: (source, target, callback = nil, collider = nil) =>
 		if collider == nil

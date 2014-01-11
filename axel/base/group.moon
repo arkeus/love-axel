@@ -28,6 +28,9 @@ export class Group extends Entity
 		for member in *@members
 			member\update! if member.exists and member.active
 
+	pre_draw: =>
+	post_draw: =>
+		
 	draw: =>
 		for member in *@members
 			if member.exists and member.visible
