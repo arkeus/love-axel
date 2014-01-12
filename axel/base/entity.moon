@@ -80,6 +80,9 @@ export class Entity extends Rectangle
 
 		velocity
 
+	destroy: => @exists = false
+	revive: => @exists = true
+
 	-- Sets up coordinate system
 	pre_draw: =>
 		sx = @x - @offset.x

@@ -61,14 +61,20 @@ class Axel
 		@debugger\update!
 		@debugger\draw! if @debugger.active
 
-	collide: (source, target, callback = nil, collider = nil) =>
+	overlap: (source, target, callback = nil, collider = nil) => @overlap_or_collide source, target, callback, collider, false
+	collide: (source, target, callback = nil, collider = nil) => @overlap_or_collide source, target, callback, collider, true
+
+	overlap_or_collide: (source, target, callback, collider, collide) =>
 		if collider == nil
-			collider = GroupCollider!
+			collider = if source.__type == "tilemap" or target.__type == "tilemap"
+				GroupCollider!
+			else
+				GridCollider @width, @height
 		else
 			collider\reset!
 
 		collider.callback = callback
 		collider\build source, target
-		return collider\collide!
+		return if collide then collider\collide! else collider\overlap!
 
 export axel = Axel!

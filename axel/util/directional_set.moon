@@ -7,6 +7,8 @@ export class DirectionalSet
 		@up = false
 		@down = false
 
+	any: => @left or @right or @up or @down
+
 	copy: (other) =>
 		@left = other.left
 		@right = other.right

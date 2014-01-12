@@ -15,7 +15,7 @@ export class Collider
 
 	add_all: (object, group) =>
 		if object.__type == "group"
-			@add_all entity for entity in *object.members when entity.active and entity.exists
+			@add_all entity, group for entity in *object.members when entity.active and entity.exists
 		elseif object != nil
 			table.insert group, object
 
@@ -90,3 +90,49 @@ export class Collider
 			return true
 			
 		return false
+
+	build_frame: (frame, entity) =>
+		frame.x = if entity.x > entity.previous.x then entity.previous.x else entity.x
+		frame.y = if entity.y > entity.previous.y then entity.previous.y else entity.y
+		frame.width = entity.x + entity.width - frame.x
+		frame.height = entity.y + entity.height - frame.y
+
+	collide_against_bucket: (source, bucket) =>
+		return false if not source.solid or not source.active or not source.exists
+
+		overlap_found = false
+		@build_frame @source_frame, source
+
+		for target in *bucket
+			continue unless target.active and target.exists and target.solid and source != target
+			@build_frame @target_frame, target
+
+			if (@source_frame.x + @source_frame.width > @target_frame.x) and (@source_frame.x < @target_frame.x + @target_frame.width) and (@source_frame.y + @source_frame.height > @target_frame.y) and (@source_frame.y < @target_frame.y + @target_frame.height)
+				if not target.phased and not source.phased
+					collision_found = true if @solve_x_collision source, target
+					@callback source, target if @callback
+
+		for target in *bucket
+			continue unless target.active and target.exists and target.solid and source != target
+			@build_frame @target_frame, target
+
+			if (@source_frame.x + @source_frame.width > @target_frame.x) and (@source_frame.x < @target_frame.x + @target_frame.width) and (@source_frame.y + @source_frame.height > @target_frame.y) and (@source_frame.y < @target_frame.y + @target_frame.height)
+				if not target.phased and not source.phased
+					collision_found = true if @solve_y_collision source, target
+					@callback source, target if @callback
+
+		overlap_found
+
+	overlap_against_bucket: (source, bucket) =>
+		overlap_found = false
+		@build_frame @source_frame, source
+
+		for target in *bucket
+			continue unless target.active and target.exists and target.solid and source != target
+			@build_frame @target_frame, target
+
+			if (@source_frame.x + @source_frame.width > @target_frame.x) and (@source_frame.x < @target_frame.x + @target_frame.width) and (@source_frame.y + @source_frame.height > @target_frame.y) and (@source_frame.y < @target_frame.y + @target_frame.height)
+				@callback source, target if @callback
+				overlap_found = true
+
+		overlap_found
