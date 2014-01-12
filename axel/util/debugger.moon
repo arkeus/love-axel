@@ -10,7 +10,7 @@ export class Debugger extends Group
 
 		@add with @library_text = Text 4, 2, "Love Axel" do nil
 		@add with @version_text = Text 0, 2, "Version 1", axel.window_width - 4, "right" do nil
-		@add with @fps_text = Text 4, axel.window_height - 16, "FPS: 0" do nil
+		@add with @fps_text = Text 4, axel.window_height - 16, "Loading" do nil
 		@add with @stats_text = Text 0, axel.window_height - 16, "Loading",  axel.window_width - 4, "right" do nil
 
 		for entity in *@members
@@ -27,7 +27,7 @@ export class Debugger extends Group
 		@updates = 0
 
 	update: =>
-		@fps_text.text = "FPS: #{love.timer.getFPS!}"
+		@fps_text.text = "FPS: #{love.timer.getFPS!} [#{math.floor collectgarbage("count")}kb]"
 		@stats_text.text = "Updates: #{@updates} Draws: #{@draws} [#{axel.states\length!}]"
 		super!
 
