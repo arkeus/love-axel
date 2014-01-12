@@ -17,6 +17,8 @@ export class Debugger extends Group
 			entity.scroll\zero!
 			entity.zoomable = false
 
+		@active = false
+
 		@draws = 0
 		@updates = 0
 

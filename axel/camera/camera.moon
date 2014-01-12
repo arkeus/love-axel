@@ -32,6 +32,8 @@ export class Camera extends Point
 
 		@x = if @bounds.width - axel.width < @bounds.x then @bounds.x else axel.util\clamp @x, @bounds.x, @bounds.width - axel.width
 		@y = if @bounds.height - axel.height < @bounds.y then @bounds.y else axel.util\clamp @y, @bounds.y, @bounds.height - axel.height
+		--@x = round @x + epsilon
+		--@y = round @y + epsilon
 
 		@fade_effect\update self if @fade_effect.active
 
@@ -57,3 +59,7 @@ export class Camera extends Point
 	flash: (duration = 1, color = Color\white!, callback = nil) =>
 		@fade_out 0, color, ->
 			@fade_in duration, callback
+
+	round = (num) ->
+		return math.floor num + 0.5 if num >= 0
+		return math.ceil num - 0.5

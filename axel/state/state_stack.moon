@@ -3,18 +3,19 @@ export class StateStack
 		@states = {}
 		@destroyed = {}
 
-	push: (state) =>
+	push: (state, copy_camera) =>
 		table.insert @states, state
-		state\create!
+		state.camera.sprite.color = axel.camera.sprite.color\clone! if copy_camera
+		state\create
 		state
 
 	pop: =>
 		previous = table.remove @states
 		table.insert @destroyed, previous
 
-	change: (state) =>
+	change: (state, copy_camera) =>
 		@pop!
-		@push state
+		@push state, copy_camera
 
 	current: =>
 		error("There are no states on the stack") if #@states == 0

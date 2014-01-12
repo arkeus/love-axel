@@ -32,6 +32,7 @@ export class Entity extends Rectangle
 		@color = Color\white!
 		@zoomable = true
 		@timers = TimerSet!
+		@blend = "alpha"
 
 	update: =>
 		@screen.x = @x - axel.camera.x + @scroll.x
@@ -94,7 +95,10 @@ export class Entity extends Rectangle
 			cy *= axel.zoom
 
 		love.graphics.setColor @color\values!
-		love.graphics.translate math.floor(sx - cx + epsilon + 0.5), math.floor(sy - cy + epsilon + 0.5)
+		love.graphics.setBlendMode @blend
+		--print math.floor(sx - cx + epsilon + 0.5), math.floor(sy - cy + epsilon + 0.5) if @__class == Coin
+		--love.graphics.translate round(sx - cx + epsilon), round(sy - cy + epsilon)
+		love.graphics.translate sx - cx + epsilon, sy - cy + epsilon
 
 	-- Draw here I doth declare
 	draw: => --abstract
@@ -104,3 +108,7 @@ export class Entity extends Rectangle
 		love.graphics.pop!
 
 	__tostring: => "Entity(#{@x}, #{@y}, #{@width}, #{@height})"
+
+	round = (num) ->
+		return math.floor num + 0.5 if num >= 0
+		return math.ceil num - 0.5

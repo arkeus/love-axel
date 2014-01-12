@@ -11,8 +11,8 @@ export class Tilemap extends Entity
 		@width, @height, @columns, @rows, @num_tiles = @get_data_size data, tile_width, tile_height
 		@tile_width, @tile_height = tile_width, tile_height
 		@data = {}
-		@tileset = love.graphics.newImage tileset
-		@atlas = QuadSet tile_width, tile_height, @tileset\getWidth!, @tileset\getHeight!
+		@tileset = @generate_padded_tileset tileset
+		@atlas = QuadSet tile_width, tile_height, @tileset\getWidth!, @tileset\getHeight!, 1
 		@batch = love.graphics.newSpriteBatch @tileset, @num_tiles
 
 		@tiles = {}
@@ -79,3 +79,26 @@ export class Tilemap extends Entity
 
 	get_tile: (id) => @tiles[id]
 	get_tiles: (ids) => [@tiles[id] for id in *ids]
+
+	generate_padded_tileset: (tileset) =>
+		source = love.image.newImageData tileset
+		columns = math.floor source\getWidth! / @tile_width
+		rows = math.floor source\getHeight! / @tile_height
+		target = love.image.newImageData columns * (@tile_width + 2), rows * (@tile_height + 2)
+		for y = 1, rows
+			for x = 1, columns
+				@copy_padded_tile source, target, x - 1, y - 1, @tile_width, @tile_height
+		love.graphics.newImage target
+
+	copy_padded_tile: (source, target, x, y, w, h) =>
+		w2, h2, x1, y1 = w + 2, h + 2, x + 1, y + 1
+		xw2, x1w2, yh2, y1h2 = x * w2, x1 * w2, y * h2, y1 * h2
+		target\paste source, xw2 + 1, yh2 + 1, x * w, y * h, w, h
+		target\paste source, xw2, yh2 + 1, x * w, y * h, 1, h
+		target\paste source, x1w2 - 1, yh2 + 1, x1 * w - 1, y * h, 1, h
+		target\paste source, xw2 + 1, yh2, x * w, y * h, w, 1
+		target\paste source, xw2 + 1, y1h2 - 1, x * w, y1 * h - 1, w, 1
+		target\setPixel xw2, yh2, source\getPixel x * w, y * h
+		target\setPixel x1w2 - 1, yh2, source\getPixel x1 * w - 1, y * h
+		target\setPixel xw2, y1h2 - 1, source\getPixel x * w, y1 * h - 1
+		target\setPixel x1w2 - 1, y1h2 - 1, source\getPixel x1 * w - 1, y1 * h - 1

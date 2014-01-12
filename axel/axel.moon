@@ -1,5 +1,3 @@
-assert love._version_major >= 0 and love._version_minor >= 9, "Axel requires Löve 0.9.0 and above"
-
 class Axel
 	new: =>
 		@initialized = false
@@ -19,8 +17,11 @@ class Axel
 		@util = AxelUtils!
 
 	initialize: (initial_state, zoom) =>
+		assert love._version_major >= 0 and love._version_minor >= 9, "Axel requires Löve 0.9.0 and above"
 		assert @initialized == false, "Game has already been initialized"
 		@bind_love!
+
+		math.randomseed os.time!
 
 		@window_width = love.window.getWidth!
 		@window_height = love.window.getHeight!
@@ -28,9 +29,13 @@ class Axel
 		@width = @window_width / @zoom
 		@height = @window_height / @zoom
 		@debugger = Debugger!
+		@particle = ParticleSystem!
 
+		@create!
 		@states\push initial_state!
 		@initialized = true
+
+	create: => -- abstract
 
 	bind_love: =>
 		love.update = (dt) -> @update dt

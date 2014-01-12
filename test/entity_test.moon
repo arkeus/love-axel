@@ -3,6 +3,7 @@ require "test"
 test class EntityTest
 	axel.dt = 1
 	axel.camera = Camera!
+	axel.debugger = Debugger!
 
 	center_test: ->
 		e = Entity!
