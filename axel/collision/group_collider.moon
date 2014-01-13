@@ -4,17 +4,22 @@ export class GroupCollider extends Collider
 		@source_list = {}
 		@target_list = {}
 
-	reset: =>
+	initialize: =>
 		@source_list = {}
 		@target_list = {}
+		@comparisons = 0
+
+	reset: =>
+		@source_list[k] = nil for k in pairs @source_list
+		@target_list[k] = nil for k in pairs @target_list
 		@comparisons = 0
 
 	build: (source, target) =>
 		@add_all source, @source_list
 		@add_all target, @target_list
 
-	overlap: => @overlap_with_callback @\overlap_against_bucket
-	collide: => @overlap_with_callback @\collide_against_bucket
+	overlap: => @overlap_with_callback @overlap_against_bucket_callback
+	collide: => @overlap_with_callback @collide_against_bucket_callback
 
 	overlap_with_callback: (overlap_function) =>
 		overlap_found = false

@@ -31,6 +31,9 @@ class Axel
 		@debugger = Debugger!
 		@particle = ParticleSystem!
 
+		@default_group_collider = GroupCollider!
+		@default_grid_collider = GridCollider @width, @height
+
 		@create!
 		@states\push initial_state!
 		@initialized = true
@@ -67,11 +70,10 @@ class Axel
 	overlap_or_collide: (source, target, callback, collider, collide) =>
 		if collider == nil
 			collider = if source.__type == "tilemap" or target.__type == "tilemap"
-				GroupCollider!
+				@default_group_collider
 			else
-				GridCollider @width, @height
-		else
-			collider\reset!
+				@default_grid_collider
+		collider\reset!
 
 		collider.callback = callback
 		collider\build source, target

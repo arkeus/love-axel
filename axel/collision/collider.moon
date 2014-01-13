@@ -8,6 +8,8 @@ export class Collider
 		@comparisons = 0
 		@solve_x_collision_callback = @\solve_x_collision
 		@solve_y_collision_callback = @\solve_y_collision
+		@overlap_against_bucket_callback = @\overlap_against_bucket
+		@collide_against_bucket_callback = @\collide_against_bucket
 
 	build: => -- abstract
 	overlap: => -- abstract

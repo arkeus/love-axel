@@ -16,14 +16,12 @@ export class AnimationSet
 		self
 
 	play: (name, reset = false) =>
-		--print "before"
 		if (reset or @animation == nil or (@animation != nil and @animation.name != name)) and @animations[name] != nil
 			@animation = @animations[name]
 			@delay = 1 / @animation.framerate
 			@timer = @delay
 			@frame = 1
 			@complete = false
-		--print "after"
 
 	show: (frame) =>
 		@animation = nil
@@ -43,6 +41,8 @@ export class AnimationSet
 					@animation.callback! if @animation.callback
 					@complete = true
 
-	quad: => @quads\get(if @animation == nil then @frame else @animation.frames[@frame])
-
+	quad: =>
+		frame = if @animation == nil then @frame else @animation.frames[@frame]
+		@quads\get frame
+	
 	get: (name) => @animations[name]

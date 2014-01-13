@@ -2,16 +2,20 @@ export class GridCollider extends Collider
 	new: (@width, @height, @columns = 10, @rows = 10) =>
 		error("Grid width and height cannot be 0") if @width == 0 or @height == 0
 		super!
-		
+
 		@cell_width = math.floor @width / @columns
 		@cell_height = math.floor @height / @rows
 
-		@reset!
+		@initialize!
 
-	reset: =>
+	initialize: =>
 		@source_list = {}
 		@grid = {}
 		@grid[i] = {} for i = 0, @columns * @rows - 1
+
+	reset: =>
+		@source_list[k] = nil for k in pairs @source_list
+		bucket[k] = nil for bucket in *@grid for k in pairs bucket
 
 	build: (source, target) =>
 		error("Cannot use spacial hashing on tilemaps") if source.__type == "tilemap" or target.__type == "tilemap"
@@ -26,8 +30,8 @@ export class GridCollider extends Collider
 				for y = math.max(0, math.floor(entity.y / @cell_height)), math.min(@rows - 1, math.floor((entity.y + entity.height) / @cell_height))
 					table.insert @grid[y * @columns + x], entity
 
-	overlap: => @overlap_with_callback @\overlap_against_bucket
-	collide: => @overlap_with_callback @\collide_against_bucket
+	overlap: => @overlap_with_callback @overlap_against_bucket_callback
+	collide: => @overlap_with_callback @collide_against_bucket_callback
 
 	overlap_with_callback: (overlap_function) =>
 		overlap_found = false

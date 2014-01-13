@@ -4,12 +4,13 @@ export class Tilemap extends Entity
 	new: (x = 0, y = 0) =>
 		super x, y
 		@frame = Rectangle!
+		@tile = Entity!
 
 	load: (data, tileset, tile_width, tile_height, solid_index = 1) =>
 		assert tile_width > 0 and tile_height > 0, "Invalid tile size"
 
 		@width, @height, @columns, @rows, @num_tiles = @get_data_size data, tile_width, tile_height
-		@tile_width, @tile_height = tile_width, tile_height
+		@tile_width, @tile_height, @tile.width, @tile.height = tile_width, tile_height, tile_width, tile_height
 		@data = {}
 		@tileset = @generate_padded_tileset tileset
 		@atlas = QuadSet tile_width, tile_height, @tileset\getWidth!, @tileset\getHeight!, 1
@@ -36,7 +37,7 @@ export class Tilemap extends Entity
 			row = data[y]
 			columns = math.max columns, #row
 			num_tiles += #row
-		columns * tile_width, rows * tile_height, columns, rows, num_tiles		
+		columns * tile_width, rows * tile_height, columns, rows, num_tiles
 
 	draw: =>
 		axel.debugger.draws += 1
@@ -62,7 +63,6 @@ export class Tilemap extends Entity
 		ey = @rows - 1 if ex > @rows - 1
 
 		overlapped = false
-		tile = Entity 0, 0, @tile_width, @tile_height
 		for x = sx, ex
 			for y = sy, ey
 				tid = @data[y * @columns + x]
@@ -70,11 +70,11 @@ export class Tilemap extends Entity
 				tile_object = @tiles[tid]
 				tile_object.callback tile_object, target if tile_object.callback
 				continue unless tile_object.solid
-				tile.x = x * @tile_width + @x
-				tile.y = y * @tile_height + @y
-				tile.previous.x = tile.x
-				tile.previous.y = tile.y
-				overlapped = callback target, tile
+				@tile.x = x * @tile_width + @x
+				@tile.y = y * @tile_height + @y
+				@tile.previous.x = @tile.x
+				@tile.previous.y = @tile.y
+				overlapped = callback target, @tile
 		overlapped
 
 	get_tile: (id) => @tiles[id]

@@ -99,8 +99,6 @@ export class Entity extends Rectangle
 
 		love.graphics.setColor @color\values!
 		love.graphics.setBlendMode @blend
-		--print math.floor(sx - cx + epsilon + 0.5), math.floor(sy - cy + epsilon + 0.5) if @__class == Coin
-		--love.graphics.translate round(sx - cx + epsilon), round(sy - cy + epsilon)
 		love.graphics.translate sx - cx + epsilon, sy - cy + epsilon
 
 	-- Draw here I doth declare

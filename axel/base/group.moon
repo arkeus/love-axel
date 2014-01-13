@@ -30,7 +30,7 @@ export class Group extends Entity
 
 	pre_draw: =>
 	post_draw: =>
-		
+
 	draw: =>
 		for member in *@members
 			if member.exists and member.visible

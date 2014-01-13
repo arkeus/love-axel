@@ -5,9 +5,6 @@ export class State extends Group
 		@persistant_draw = true
 		@camera = Camera!
 
-	update: =>
-		super!
-
 	draw: =>
 		@camera\update!
 		super!

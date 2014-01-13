@@ -10,6 +10,8 @@ export class Sprite extends Entity
 		else
 			@create 10, 10
 
+		@quad = love.graphics.newQuad 0, 0, 4, 4, 4, 4
+
 	load: (graphic, frame_width = 0, frame_height = 0) =>
 		@graphic = @create_image graphic
 		if frame_width == 0 or frame_height == 0
@@ -51,6 +53,7 @@ export class Sprite extends Entity
 		if @facing == @flip
 			love.graphics.translate @frame_width, 0
 			love.graphics.scale -1, 1
+
 		love.graphics.draw @graphic, @animations\quad!, 0, 0
 
 	render_rectangle: =>
