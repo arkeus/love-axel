@@ -79,6 +79,7 @@ export class Tilemap extends Entity
 
 	get_tile: (id) => @tiles[id]
 	get_tiles: (ids) => [@tiles[id] for id in *ids]
+	get_tile_at: (x, y) => @data[(y - 1) * @columns + (x - 1)] 
 
 	generate_padded_tileset: (tileset) =>
 		source = love.image.newImageData tileset

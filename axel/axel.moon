@@ -64,6 +64,9 @@ class Axel
 		@debugger\update!
 		@debugger\draw! if @debugger.active
 
+	set_background_color: (color) => love.graphics.setBackgroundColor color\values!
+	state: => @states\current!
+
 	overlap: (source, target, callback = nil, collider = nil) => @overlap_or_collide source, target, callback, collider, false
 	collide: (source, target, callback = nil, collider = nil) => @overlap_or_collide source, target, callback, collider, true
 

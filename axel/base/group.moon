@@ -10,6 +10,9 @@ export class Group extends Entity
 		table.insert @members, entity
 		self
 
+	add_all: (entities) =>
+		@add entity for entity in *entities
+
 	remove: (entity) =>
 		index = @index entity
 		return self if index == nil
